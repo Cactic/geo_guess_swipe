@@ -1,11 +1,14 @@
 package com.example.prive.geo_guess_swipe;
 
+import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Snackbar sb = Snackbar.make(findViewById(android.R.id.content), "", Snackbar.LENGTH_SHORT);
 
         List<Photos> photoList = new ArrayList<>();
 
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL);
 
         cityRV.setLayoutManager(layoutManager);
-        Adapter adapter = new Adapter(this,photoList);
+        Adapter adapter = new Adapter(this, photoList);
         cityRV.setAdapter(adapter);
 
 /*
@@ -52,8 +57,17 @@ and uses callbacks to signal when a user is performing these actions.
 
                         //Get the index corresponding to the selected position
                         int position = (viewHolder.getAdapterPosition());
-                        //mReminders.remove(position);
-                        //mAdapter.notifyItemRemoved(position);
+
+                        if (Photos.trueOrFalse[position] && swipeDir == 4) {
+                            sb.setText("Correct");
+                            sb.show();
+                        } else if (!Photos.trueOrFalse[position] && swipeDir == 8) {
+                            sb.setText("Correct");
+                            sb.show();
+                        } else {
+                            sb.setText("Wrong");
+                            sb.show();
+                        }
                     }
                 };
 
