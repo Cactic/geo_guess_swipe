@@ -16,4 +16,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         view = itemView;
     }
 
+
 }
+
+
